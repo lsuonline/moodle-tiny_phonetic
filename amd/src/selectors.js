@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,16 +14,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Selectors for the tiny_phonetic plugin.
  *
- * @package     tiny_phonetic
+ * @module      tiny_phonetic/selectors
  * @copyright   2026 LSU Online & Continuing Education
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component = 'tiny_phonetic';
-$plugin->version   = 2026041000;
-$plugin->requires  = 2024100100;
-$plugin->supported = [405, 405];
+export default {
+    actions: {
+        submit: '[data-action="save"]',
+    },
+    elements: {
+        form:        'form',
+        libraryItem: '.tiny_phonetic_library button.tiny_phonetic_btn',
+        textArea:    '.tiny_phonetic_text',
+        previewChar: '.tiny_phonetic_preview_char',
+        baseSymbol:  '.tiny_phonetic_base_symbol',
+    },
+};

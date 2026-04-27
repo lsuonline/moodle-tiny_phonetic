@@ -15,258 +15,97 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Phonetic Plugin for the Atto Editor
+ * Tiny phonetic settings.
  *
- * @package   atto_phonetic
- * @copyright 2008 onwards Louisiana State University
- * @copyright 2008 onwards David Lowe, Robert Russo
- * @co-author Disha Devaiya
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tiny_phonetic
+ * @copyright   2026 LSU Online & Continuing Education
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$phonetics = array();
+if ($hassiteconfig) {
+    $ADMIN->add('editortiny', new admin_category('tiny_phonetic', new lang_string('pluginname', 'tiny_phonetic')));
 
-// Format is hex,dec,true,comment.
-// Pulmonic Consonants.
-$phonetics['consanants_p'] = array(
-    array('&#x0070;', '&#112;', true, 'LATIN SMALL LETTER P'),
-    array('&#x0070;&#x02B0;', '&#112;&#688;', true, 'LATIN SMALL LETTER P WITH MODIFIER LETTER SMALL H'),
-    array('&#x0062;', '&#98;', true, 'LATIN SMALL LETTER B'),
-    array('&#x0074;', '&#116;', true, 'LATIN SMALL LETTER T'),
-    array('&#x0074;&#x02B0;', '&#116;&#688;', true, 'LATIN SMALL LETTER T WITH MODIFIER LETTER SMALL H'),
-    array('&#x0064;', '&#100;', true, 'LATIN SMALL LETTER D'),
-    array('&#x0288;', '&#648;', true, 'LATIN SMALL LETTER T WITH RETROFLEX HOOK'),
-    array('&#x0256;', '&#598;', true, 'LATIN SMALL LETTER D WITH TAIL'),
-    array('&#x0063;', '&#99;', true, 'LATIN SMALL LETTER C'),
-    array('&#x025F;', '&#607;', true, 'LATIN SMALL LETTER DOTLESS J WITH STROKE'),
-    array('&#x006B;', '&#107;', true, 'LATIN SMALL LETTER K'),
-    array('&#x006B;&#x02B0;', '&#107;&#688;', true, 'LATIN SMALL LETTER K WITH MODIFIER LETTER SMALL H'),
-    array('&#x0067;', '&#103;', true, 'LATIN SMALL LETTER G'),
-    array('&#x0071;', '&#113;', true, 'LATIN SMALL LETTER Q'),
-    array('&#x0262;', '&#610;', true, 'LATIN LETTER SMALL CAPITAL G'),
-    array('&#x0294;', '&#660;', true, 'GLOTTAL STOP'),
-    array('&#x006D;', '&#109;', true, 'LATIN SMALL LETTER M'),
-    array('&#x0271;', '&#625;', true, 'LATIN SMALL LETTER M WITH HOOK'),
-    array('&#x006E;', '&#110;', true, 'LATIN SMALL LETTER N'),
-    array('&#x0273;', '&#627;', true, 'LATIN SMALL LETTER N WITH RETROFLEX HOOK'),
-    array('&#x0272;', '&#626;', true, 'LATIN SMALL LETTER N WITH LEFT HOOK'),
-    array('&#x014B;', '&#331;', true, 'LATIN SMALL LETTER ENG'),
-    array('&#x0274;', '&#628;', true, 'LATIN LETTER SMALL CAPITAL N'),
-    array('&#x0299;', '&#665;', true, 'LATIN LETTER SMALL CAPITAL B'),
-    array('&#x0072;', '&#114;', true, 'LATIN SMALL LETTER R'),
-    array('&#x0280;', '&#640;', true, 'LATIN LETTER SMALL CAPITAL R'),
-    array('&#x027E;', '&#638;', true, 'LATIN SMALL LETTER R WITH FISHHOOK'),
-    array('&#x027D;', '&#637;', true, 'LATIN SMALL LETTER R WITH TAIL'),
-    array('&#x0278;', '&#632;', true, 'LATIN SMALL LETTER PHI'),
-    array('&#x03B2;', '&#946;', true, 'GREEK SMALL LETTER BETA'),
-    array('&#x0066;', '&#102;', true, 'LATIN SMALL LETTER F'),
-    array('&#x0076;', '&#118;', true, 'LATIN SMALL LETTER V'),
-    array('&#x03B8;', '&#952;', true, 'GREEK SMALL LETTER THETA'),
-    array('&#x00f0;', '&#240;', true, 'LATIN SMALL LETTER ETH'),
-    array('&#x0073;', '&#115;', true, 'LATIN SMALL LETTER S'),
-    array('&#x007A;', '&#122;', true, 'LATIN SMALL LETTER Z'),
-    array('&#x0283;', '&#643;', true, 'LATIN SMALL LETTER ESH'),
-    array('&#x02A7;', '&#679;', true, 'LATIN SMALL LETTER TESH DIGRAPH'),
-    array('&#x0292;', '&#658;', true, 'LATIN SMALL LETTER EZH'),
-    array('&#x02A4;', '&#676;', true, 'LATIN SMALL LETTER DEZH DIGRAPH'),
-    array('&#x0282;', '&#642;', true, 'LATIN SMALL LETTER S WITH HOOK'),
-    array('&#x0290;', '&#656;', true, 'LATIN SMALL LETTER Z WITH RETROFLEX HOOK'),
-    array('&#x00E7;', '&#231;', true, 'LATIN SMALL LETTER C WITH CEDILLA'),
-    array('&#x029D;', '&#669;', true, 'VOICED PALATAL FRICATIVE'),
-    array('&#x78;', '&#120;', true, 'LATIN SMALL LETTER X'),
-    array('&#x0263;', '&#611;', true, 'LATIN SMALL LETTER GAMMA'),
-    array('&#x03C7;', '&#967;', true, 'GREEK SMALL LETTER CH'),
-    array('&#x0281;', '&#641;', true, 'LATIN LETTER SMALL CAPITAL INVERTED R'),
-    array('&#x0127;', '&#295;', true, 'LATIN SMALL LETTER H WITH STROKE'),
-    array('&#x0295;', '&#661;', true, 'LATIN LETTER PHARYNGEAL VOICED FRICATIVE'),
-    array('&#x68;', '&#104;', true, 'LATIN SMALL LETTER H'),
-    array('&#x0266;', '&#614;', true, 'LATIN SMALL LETTER H WITH HOOK'),
-    array('&#x026C;', '&#620;', true, 'LATIN SMALL LETTER L WITH BELT'),
-    array('&#x026E;', '&#622;', true, 'LATIN SMALL LETTER LEZH'),
-    array('&#x028B;', '&#651;', true, 'LATIN SMALL LETTER V WITH HOOK'),
-    array('&#x0279;', '&#633;', true, 'LATIN SMALL LETTER TURNED R'),
-    array('&#x027B;', '&#635;', true, 'LATIN SMALL LETTER TURNED R WITH HOOK'),
-    array('&#x6a;', '&#106;', true, 'LATIN SMALL LETTER J'),
-    array('&#x0270;', '&#624;', true, 'LATIN SMALL LETTER TURNED M WITH LONG LEG'),
-    array('&#x6c;', '&#108;', true, 'LATIN SMALL LETTER L'),
-    array('&#x026D;', '&#621;', true, 'LATIN SMALL LETTER L WITH RETROFLEX HOOK'),
-    array('&#x028E;', '&#654;', true, 'LATIN SMALL LETTER TURNED Y'),
-    array('&#x029F;', '&#671;', true, 'LATIN LETTER SMALL CAPITAL L'),
-    array('&#x026B;', '&#619;', true, 'LATIN SMALL LETTER L WITH MIDDLE TILDE'),
-    array('&#x77;', '&#119;', true, 'LATIN SMALL LETTER W'));
+    $settings = new admin_settingpage('tiny_phonetic_settings', new lang_string('settings', 'tiny_phonetic'));
 
-// Vowels.
-$phonetics['vowels'] = array(
-    array('&#x0069;', '&#105;', true, 'LATIN SMALL LETTER I'),
-    array('&#x0079;', '&#121;', true, 'LATIN SMALL LETTER Y'),
-    array('&#x268;', '&#616;', true, 'LATIN SMALL LETTER BARRED I'),
-    array('&#x0289;', '&#649;', true, 'LATIN SMALL LETTER U BAR'),
-    array('&#x026F;', '&#623;', true, 'LATIN SMALL LETTER TURNED M'),
-    array('&#x0075;', '&#117;', true, 'LATIN SMALL LETTER U'),
-    array('&#x026A;', '&#618;', true, 'LATIN LETTER SMALL CAPITAL I'),
-    array('&#x028F;', '&#655;', true, 'LATIN LETTER SMALL CAPITAL Y'),
-    array('&#x028A;', '&#650;', true, 'LATIN SMALL LETTER UPSILON'),
-    array('&#x0065;', '&#101;', true, 'LATIN SMALL LETTER E'),
-    array('&#x00F8;', '&#248;', true, 'LATIN SMALL LETTER O WITH STROKE'),
-    array('&#x0258;', '&#600;', true, 'LATIN SMALL LETTER REVERSED E'),
-    array('&#x0259;', '&#601;', true, 'LATIN SMALL LETTER SCHWA'),
-    array('&#x025A;', '&#602;', true, 'LATIN SMALL LETTER SCHWA WITH HOOK'),
-    array('&#x0275;', '&#629;', true, 'LATIN SMALL LETTER BARRED O'),
-    array('&#x0264;', '&#612;', true, 'LATIN SMALL LETTER RAMS HORN'),
-    array('&#x006F;', '&#111;', true, 'LATIN SMALL LETTER O'),
-    array('&#x025B;', '&#603;', true, 'LATIN SMALL LETTER OPEN E'),
-    array('&#x025B;&#x0303', '&#603;&#771;', true, 'LATIN SMALL LETTER OPEN E WITH TILDE'),
-    array('&#x0153;', '&#339;', true, 'LATIN SMALL LIGATURE OE'),
-    array('&#x0153;&#x0303', '&#339;&#771;', true, 'LATIN SMALL LIGATURE OE WITH TILDE'),
-    array('&#x025C;', '&#604;', true, 'LATIN SMALL LETTER REVERSED OPEN E'),
-    array('&#x025D;', '&#605;', true, 'LATIN SMALL LETTER REVERSED OPEN E WITH HOOK'),
-    array('&#x025E;', '&#606;', true, 'LATIN SMALL LETTER CLOSED REVERSED OPEN E'),
-    array('&#x1D27;', '&#7463;', true, 'GREEK LETTER SMALL CAPITAL LAMDA'),
-    array('&#x0254;', '&#596;', true, 'LATIN SMALL LETTER OPEN O'),
-    array('&#x0254;&#x0303', '&#596;&#771;', true, 'LATIN SMALL LETTER OPEN O WITH TILDE'),
-    array('&#x00E6;', '&#230;', true, 'LATIN SMALL LETTER AE'),
-    array('&#x0250;', '&#592;', true, 'LATIN SMALL LETTER TURNED A'),
-    array('&#x0061;', '&#097;', true, 'LATIN SMALL LETTER A'),
-    array('&#x0276;', '&#630;', true, 'LATIN LETTER SMALL CAPITAL OE'),
-    array('&#x0251;', '&#593;', true, 'LATIN SMALL LETTER ALPHA'),
-    array('&#x0251;&#x0303', '&#593;&#771;', true, 'LATIN SMALL LETTER ALPHA WITH TILDE'),
-    array('&#x0252;', '&#594;', true, 'LATIN SMALL LETTER TURNED ALPHA')
-);
+    if ($ADMIN->fulltree) {
+        // Pulmonic Consonants (group 1).
+        $default1 = "&#112;\r\n&#112;&#688;\r\n&#98;\r\n&#116;\r\n&#116;&#688;\r\n&#100;\r\n&#648;\r\n&#598;\r\n"
+            . "&#99;\r\n&#607;\r\n&#107;\r\n&#107;&#688;\r\n&#103;\r\n&#113;\r\n&#610;\r\n&#660;\r\n"
+            . "&#109;\r\n&#625;\r\n&#110;\r\n&#627;\r\n&#626;\r\n&#331;\r\n&#628;\r\n&#665;\r\n"
+            . "&#114;\r\n&#640;\r\n&#638;\r\n&#637;\r\n&#632;\r\n&#946;\r\n&#102;\r\n&#118;\r\n"
+            . "&#952;\r\n&#240;\r\n&#115;\r\n&#122;\r\n&#643;\r\n&#679;\r\n&#658;\r\n&#676;\r\n"
+            . "&#642;\r\n&#656;\r\n&#231;\r\n&#669;\r\n&#120;\r\n&#611;\r\n&#967;\r\n&#641;\r\n"
+            . "&#295;\r\n&#661;\r\n&#104;\r\n&#614;\r\n&#620;\r\n&#622;\r\n&#651;\r\n&#633;\r\n"
+            . "&#635;\r\n&#106;\r\n&#624;\r\n&#108;\r\n&#621;\r\n&#654;\r\n&#671;\r\n&#619;\r\n&#119;\r\n";
 
-// Non-Pulmonic Consonants.
-$phonetics['consanants_n'] = array(
-    array('&#x0298;', '&#664;', true, 'LATIN LETTER BILABIAL CLICK'),
-    array('&#x01C0;', '&#448;', true, 'DENTAL CLICK'),
-    array('&#x1D4E;', '&#7502;', true, 'MODIFIER LETTER SMALL TURNED I'),
-    array('&#x01C2;', '&#450;', true, 'PALATAL CLICK'),
-    array('&#x01C1;', '&#449;', true, 'Alveolar lateral click'),
-    array('&#x0253;', '&#595;', true, 'Voiced bilabial implosive'),
-    array('&#x0257;', '&#599;', true, 'LATIN SMALL LETTER D WITH HOOK'),
-    array('&#x0284;', '&#644;', true, 'LATIN SMALL LETTER DOTLESS J WITH STROKE AND HOOK'),
-    array('&#x0260;', '&#608;', true, 'LATIN SMALL LETTER G WITH HOOK'),
-    array('&#x029B;', '&#667;', true, 'LATIN LETTER SMALL CAPITAL G WITH HOOK')
-);
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup1',
+            new lang_string('librarygroup1', 'tiny_phonetic'),
+            new lang_string('librarygroup1_desc', 'tiny_phonetic'),
+            $default1
+        ));
 
-// Other symbols.
-$phonetics['other'] = array(
-    array('&#x028D;', '&#653;', true, 'LATIN SMALL LETTER TURNED W'),
-    array('&#x0265;', '&#613;', true, 'LATIN SMALL LETTER TURNED H'),
-    array('&#x029C;', '&#668;', true, 'LATIN LETTER SMALL CAPITAL H'),
-    array('&#x02A2;', '&#674;', true, 'LATIN LETTER REVERSED GLOTTAL STOP WITH STROKE'),
-    array('&#x02A1;', '&#673;', true, 'LATIN LETTER GLOTTAL STOP WITH STROKE'),
-    array('&#x0255;', '&#597;', true, 'LATIN SMALL LETTER C WITH CURL'),
-    array('&#x0291;', '&#657;', true, 'LATIN SMALL LETTER Z WITH CURL'),
-    array('&#x027A;', '&#634;', true, 'LATIN SMALL LETTER TURNED R WITH LONG LEG'),
-    array('&#x0267;', '&#615;', true, 'LATIN SMALL LETTER HENG WITH HOOK'),
-    array('&#x02E5;', '&#741;', true, 'MODIFIER LETTER EXTRA-HIGH TONE BAR'),
-    array('&#x02E6;', '&#742;', true, 'MODIFIER LETTER HIGH TONE BAR'),
-    array('&#x02E7;', '&#743;', true, 'MODIFIER LETTER MID TONE BAR'),
-    array('&#x02E8;', '&#744;', true, 'MODIFIER LETTER LOW TONE BAR'),
-    array('&#x02E9;', '&#745;', true, 'MODIFIER LETTER EXTRA-LOW TONE BAR'),
-    array('&#x02E5;&#x02E9;', '&#741;&#745;', true, 'MODIFIER LETTER RISING TONE BAR'),
-    array('&#x02E9;&#x02E5;', '&#745;&#741;', true, 'MODIFIER LETTER FALLING TONE BAR'),
-    array('&#x02E7;&#x02E5;', '&#743;&#741;', true, 'MODIFIER LETTER HIGH RISING TONE BAR'),
-    array('&#x02E8;&#x02E7;', '&#744;&#743;', true, 'MODIFIER LETTER LOW RISING TONE BAR'),
-    array('&#x02E7;&#x02E5;&#x02E7;', '&#743;&#741;&#743;', true, 'MODIFIER LETTER RISING-FALLING TONE BAR'),
-    array('&#x2191;', '&#8593;', true, 'UPSTEP'),
-    array('&#x2193;', '&#8595;', true, 'DOWNSTEP'),
-    array('&#x2197;', '&#8599;', true, 'GLOBAL RISE'),
-    array('&#x2198;', '&#8600;', true, 'GLOBAL FALL')
-);
+        // Vowels (group 2).
+        $default2 = "&#105;\r\n&#121;\r\n&#616;\r\n&#649;\r\n&#623;\r\n&#117;\r\n&#618;\r\n&#655;\r\n&#650;\r\n"
+            . "&#101;\r\n&#248;\r\n&#600;\r\n&#601;\r\n&#602;\r\n&#629;\r\n&#612;\r\n&#111;\r\n"
+            . "&#603;\r\n&#603;&#771;\r\n&#339;\r\n&#339;&#771;\r\n&#604;\r\n&#605;\r\n&#606;\r\n"
+            . "&#7463;\r\n&#596;\r\n&#596;&#771;\r\n&#230;\r\n&#592;\r\n&#097;\r\n&#630;\r\n"
+            . "&#593;\r\n&#593;&#771;\r\n&#594;\r\n";
 
-// Spacing Modifiers.
-$phonetics['spacing'] = array(
-    array('&#x02B0;', '&#688;', true, 'MODIFIER LETTER SMALL H'),
-    array('&#x02B7;', '&#695;', true, 'MODIFIER LETTER SMALL W'),
-    array('&#x02B2;', '&#690;', true, 'MODIFIER LETTER SMALL J'),
-    array('&#x1D5E;', '&#7518;', true, 'MODIFIER LETTER SMALL GREEK GAMMA'),
-    array('&#x02E4;', '&#740;', true, 'MODIFIER LETTER SMALL REVERSED GLOTTAL STOP'),
-    array('&#x02E1;', '&#737;', true, 'MODIFIER LETTER SMALL L'),
-    array('&#x207f;', '&#8319;', true, 'MODIFIER LETTER SMALL N'),
-    array('&#x02E0;', '&#736;', true, 'MODIFIER LETTER SMALL GAMMA'),
-    array('&#x02C8;', '&#712;', true, 'MODIFIER LETTER VERTICAL LINE'),
-    array('&#x02CC;', '&#716;', true, 'MODIFIER LETTER LOW VERTICAL LINE'),
-    array('&#x02D0;', '&#720;', true, 'MODIFIER LETTER TRIANGULAR COLON'),
-    array('&#x02D1;', '&#721;', true, 'MODIFIER LETTER HALF TRIANGULAR COLON')
-);
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup2',
+            new lang_string('librarygroup2', 'tiny_phonetic'),
+            new lang_string('librarygroup2_desc', 'tiny_phonetic'),
+            $default2
+        ));
 
-// Combining.
+        // Non-Pulmonic Consonants (group 3).
+        $default3 = "&#664;\r\n&#448;\r\n&#7502;\r\n&#450;\r\n&#449;\r\n&#595;\r\n&#599;\r\n&#644;\r\n&#608;\r\n&#667;\r\n";
 
-$phonetics['combinational'] = array(
-    array('&#x325;', '&#805;', true, 'COMBINING RING BELOW'),
-    array('&#x32c;', '&#812;', true, 'COMBINING CARON BELOW'),
-    array('&#x339', '&#825;', true, 'COMBINING RIGHT HALF RING BELOW'),
-    array('&#x31c;', '&#796;', true, 'COMBINING LEFT HALF RING BELOW'),
-    array('&#x31f;', '&#799;', true, 'COMBINING PLUS SIGN BELOW'),
-    array('&#x331;', '&#817;', true, 'COMBINING MACRON BELOW'),
-    array('&#x308;', '&#776;', true, 'COMBINING DIAERESIS'),
-    array('&#x33d;', '&#829;', true, 'COMBINING X ABOVE'),
-    array('&#x329;', '&#809;', true, 'COMBINING VERTICAL LINE BELOW'),
-    array('&#x32f;', '&#815;', true, 'COMBINING INVERTED BREVE BELOW'),
-    array('&#x324;', '&#804;', true, 'COMBINING DIAERESIS BELOW'),
-    array('&#x330;', '&#816;', true, 'COMBINING TILDE BELOW'),
-    array('&#x33c;', '&#828;', true, 'COMBINING SEAGULL BELOW'),
-    array('&#x334;', '&#820;', true, 'COMBINING TILDE OVERLAY'),
-    array('&#x31d;', '&#797;', true, 'COMBINING UP TACK BELOW'),
-    array('&#x31e;', '&#798;', true, 'COMBINING DOWN TACK BELOW'),
-    array('&#x319;', '&#793;', true, 'COMBINING RIGHT TACK BELOW'),
-    array('&#x318;', '&#792;', true, 'COMBINING LEFT TACK BELOW'),
-    array('&#x32a;', '&#810;', true, 'COMBINING BRIDGE BELOW'),
-    array('&#x33a;', '&#826;', true, 'COMBINING INVERTED BRIDGE BELOW'),
-    array('&#x33b;', '&#827;', true, 'COMBINING SQUARE BELOW'),
-    array('&#x342;', '&#834;', true, 'COMBINING GREEK PERISPOMENI'),
-    array('&#x31a;', '&#794;', true, 'COMBINING LEFT ANGLE ABOVE'),
-    array('&#x02DE;', '&#734;', true, 'MODIFIER LETTER RHOTIC HOOK'),
-    array('&#x035C;', '&#860;', true, 'COMBINING DOUBLE BREVE BELOW'),
-    array('&#x0361;', '&#865;', true, 'COMBINING DOUBLE INVERTED BREVE'),
-    array('&#x0306;', '&#774;', true, 'COMBINING BREVE'),
-    array('&#x030B;', '&#779;', true, 'COMBINING DOUBLE ACUTE ACCENT'),
-    array('&#x0301;', '&#769;', true, 'COMBINING ACUTE ACCENT'),
-    array('&#x0304;', '&#772;', true, 'COMBINING MACRON'),
-    array('&#x0300;', '&#768;', true, 'COMBINING GRAVE ACCENT'),
-    array('&#x030F;', '&#783;', true, 'COMBINING DOUBLE GRAVE ACCENT'),
-    array('&#x030C;', '&#780;', true, 'COMBINING CARON'),
-    array('&#x0302;', '&#770;', true, 'COMBINING CIRCUMFLEX ACCENT'),
-    array('&#x1DC4;', '&#7620;', true, 'COMBINING MACRON-ACUTE'),
-    array('&#x1DC5;', '&#7621;', true, 'COMBINING GRAVE-MACRON'),
-    array('&#x1DC8;', '&#7624;', true, 'COMBINING GRAVE-ACUTE-GRAVE')
-);
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup3',
+            new lang_string('librarygroup3', 'tiny_phonetic'),
+            new lang_string('librarygroup3_desc', 'tiny_phonetic'),
+            $default3
+        ));
 
-$ADMIN->add('editoratto',
-    new admin_category(
-        'atto_phonetic',
-        new lang_string('pluginname', 'atto_phonetic')
-    )
-);
+        // Other (group 4).
+        $default4 = "&#653;\r\n&#613;\r\n&#668;\r\n&#674;\r\n&#673;\r\n&#597;\r\n&#657;\r\n&#634;\r\n&#615;\r\n"
+            . "&#741;\r\n&#742;\r\n&#743;\r\n&#744;\r\n&#745;\r\n&#741;&#745;\r\n&#745;&#741;\r\n"
+            . "&#743;&#741;\r\n&#744;&#743;\r\n&#743;&#741;&#743;\r\n&#8593;\r\n&#8595;\r\n&#8599;\r\n&#8600;\r\n";
 
-$settings = new admin_settingpage(
-    'atto_phonetic_settings',
-    new lang_string('settings', 'atto_phonetic')
-);
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup4',
+            new lang_string('librarygroup4', 'tiny_phonetic'),
+            new lang_string('librarygroup4_desc', 'tiny_phonetic'),
+            $default4
+        ));
 
-if ($ADMIN->fulltree) {
+        // Spacing Modifiers (group 5).
+        $default5 = "&#688;\r\n&#695;\r\n&#690;\r\n&#7518;\r\n&#740;\r\n&#737;\r\n&#8319;\r\n&#736;\r\n"
+            . "&#712;\r\n&#716;\r\n&#720;\r\n&#721;\r\n";
 
-    $tab = 0;
-    foreach ($phonetics as $tabs => $phoneticmap) {
-        $tab++;
-        $name = new lang_string('librarygroup'.$tab, 'atto_phonetic');
-        $desc = new lang_string('librarygroup'.$tab.'_desc', 'atto_phonetic');
-        $default = '';
-        foreach ($phoneticmap as $i => $phonetic) {
-            if ($phonetic[2] == true) {
-                $default .= $phonetic[1]."\r\n";
-            }
-        }
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup5',
+            new lang_string('librarygroup5', 'tiny_phonetic'),
+            new lang_string('librarygroup5_desc', 'tiny_phonetic'),
+            $default5
+        ));
 
-        $setting = new admin_setting_configtextarea(
-            'atto_phonetic/librarygroup'. $tab,
-            $name,
-            $desc,
-            $default
-        );
+        // Combining (group 6).
+        $default6 = "&#805;\r\n&#812;\r\n&#825;\r\n&#796;\r\n&#799;\r\n&#817;\r\n&#776;\r\n&#829;\r\n"
+            . "&#809;\r\n&#815;\r\n&#804;\r\n&#816;\r\n&#828;\r\n&#820;\r\n&#797;\r\n&#798;\r\n"
+            . "&#793;\r\n&#792;\r\n&#810;\r\n&#826;\r\n&#827;\r\n&#834;\r\n&#794;\r\n&#734;\r\n"
+            . "&#860;\r\n&#865;\r\n&#774;\r\n&#779;\r\n&#769;\r\n&#772;\r\n&#768;\r\n&#783;\r\n"
+            . "&#780;\r\n&#770;\r\n&#7620;\r\n&#7621;\r\n&#7624;\r\n";
 
-        $settings->add($setting);
+        $settings->add(new admin_setting_configtextarea(
+            'tiny_phonetic/librarygroup6',
+            new lang_string('librarygroup6', 'tiny_phonetic'),
+            new lang_string('librarygroup6_desc', 'tiny_phonetic'),
+            $default6
+        ));
     }
 }

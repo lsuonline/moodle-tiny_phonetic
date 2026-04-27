@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,16 +14,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Options for the tiny_phonetic plugin.
  *
- * @package     tiny_phonetic
+ * @module      tiny_phonetic/options
  * @copyright   2026 LSU Online & Continuing Education
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+import {getPluginOptionName} from 'editor_tiny/options';
+import {pluginName} from './common';
 
-$plugin->component = 'tiny_phonetic';
-$plugin->version   = 2026041000;
-$plugin->requires  = 2024100100;
-$plugin->supported = [405, 405];
+const librariesOption = getPluginOptionName(pluginName, 'libraries');
+
+/**
+ * Register editor options (values come from PHP plugin configuration).
+ *
+ * @param {import('tinymce').Editor} editor
+ */
+export const register = (editor) => {
+    editor.options.register(librariesOption, {
+        processor: 'array',
+        default: [],
+    });
+};
+
+/**
+ * Get the configured symbol libraries.
+ *
+ * @param {import('tinymce').Editor} editor
+ * @returns {Array}
+ */
+export const getLibraries = (editor) => editor.options.get(librariesOption) ?? [];

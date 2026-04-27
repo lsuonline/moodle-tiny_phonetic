@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,16 +14,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Phonetic Modal for Tiny.
  *
- * @package     tiny_phonetic
+ * @module      tiny_phonetic/modal
  * @copyright   2026 LSU Online & Continuing Education
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+import Modal from 'core/modal';
 
-$plugin->component = 'tiny_phonetic';
-$plugin->version   = 2026041000;
-$plugin->requires  = 2024100100;
-$plugin->supported = [405, 405];
+export default class PhoneticModal extends Modal {
+    static TYPE = 'tiny_phonetic/modal';
+    static TEMPLATE = 'tiny_phonetic/modal';
+
+    registerEventListeners() {
+        super.registerEventListeners();
+        this.registerCloseOnSave();
+        this.registerCloseOnCancel();
+    }
+
+    configure(modalConfig) {
+        modalConfig.show = true;
+        modalConfig.large = true;
+        modalConfig.removeOnClose = true;
+        super.configure(modalConfig);
+    }
+}
